@@ -65,7 +65,6 @@ bool ActorGraph::loadFromFile(const char *in_filename,
     string actor_name(record[0]);
     string movie_title(record[1] + "#@" + record[2]);
     int movie_year = stoi(record[2]);
-    // TODO: we have an actor/movie relationship, now what?
     // search movie map for movie title
     unordered_map<string, Movie*>::iterator er = films.find (movie_title);
     // if no such movie exists, add to movie map
@@ -105,32 +104,6 @@ bool ActorGraph::loadFromFile(const char *in_filename,
 
   return true;
 }
-/*vector<vector<int>> ActorGraph::populateAdjMatrix(vector<string> * costars) {
-  int matrixSize = costars->size();
-  adjacencymatrix.resize(matrixSize, vector<int>(matrixSize));
-  for (int k = 0; k < matrixSize; k++) {
-    ActorVector * currentActor = actors[costars->at(k)];
-    int movieSize = currentActor->movies.size();
-    for(int i = 0; i < movieSize; i++) {
-      Movie * movieptr = films[currentActor->movies[i]];
-      for (unsigned int j = 0; j < movieptr->stars.size(); j++) {
-        string secondActor = actors[movieptr->stars[j]]->actorName;
-        bool notfound = true;
-        int m = 0;
-        while (notfound && m < matrixSize) {
-          if (secondActor.compare(costars->at(m)) == 0) { 
-            adjacencymatrix[k][m] = 1;
-            notfound = false;
-          }
-          m++;
-        }
-      }
-    }
-  }
-  for (int i = 0; i < matrixSize; i++)
-    adjacencymatrix[i][i] = 0;
-  return adjacencymatrix;
-}*/
 vector<string> ActorGraph::futureinteractions(string Actor) {
   vector<string> * costars = new vector<string>();
   findCostars(Actor, costars);
